@@ -1,5 +1,7 @@
 FROM alpine:3.7
-LABEL maintainer="yangbo_youhaku@ruri.waseda.jp"
+
+LABEL maintainer="mike-sino"
+LABEL version="1.0"
 
 # Install GUN libc
 ENV LC_ALL en_US.UTF-8
