@@ -67,7 +67,6 @@ RUN conda install -c anaconda-nb-extensions nb_conda_kernels && \
 RUN conda install -c conda-forge JupyterLab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
 
-
 # Install Python for MySQL
 RUN conda install pymysql && \ 
     conda install pandas && \ 
