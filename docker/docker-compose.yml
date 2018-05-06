@@ -24,9 +24,10 @@ services:
     container_name: jupyter
     ports:
       - "8080:8080"
+      - "8888:8888"
     volumes:
       - ../notebook:/notebook
-    command: jupyter notebook
+    command: jupyter lab
     restart: always
     privileged: true
 

@@ -63,12 +63,16 @@ RUN conda install -c anaconda-nb-extensions nb_conda_kernels && \
     conda create -n python3 python=3.6 ipykernel && \
     python -m nb_conda_kernels.install --enable --prefix="%CONDA_PREFIX"
 
+# Install JupyterLab
+RUN conda install -c conda-forge JupyterLab
+RUN jupyter serverextension enable --py jupyterlab --sys-prefix
+
+
 # Install Python for MySQL
 RUN conda install pymysql && \ 
     conda install pandas && \ 
     conda install matplotlib && \ 
     pip install ipython-sql
 
-
-EXPOSE 8080
+EXPOSE 8080 8888
 CMD [ "/sbin/init" ]
