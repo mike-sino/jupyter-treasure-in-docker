@@ -1,21 +1,10 @@
 version: '3'
 
 volumes:
-  db-data:
+  mysql-data:
+  postgresql-data:
 
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    volumes:
-      - db-data:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: jupyter
-      MYSQL_DATABASE: jupyter
-      MYSQL_USER: root
-      MYSQL_PASSWORD: jupyter
-
   jupyter:
     links:
       - mysql
@@ -23,18 +12,32 @@ services:
     image: jupyter-treasure
     container_name: jupyter
     ports:
-      - "8080:8080"
       - "8888:8888"
     volumes:
       - ../notebook:/notebook
+      - ./config/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+      - ./init/python3/requirements.txt:/tmp/requirements.txt
     command: jupyter lab
     restart: always
     privileged: true
 
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./config/my.cnf:/etc/my.cnf
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: jupyter
+      MYSQL_DATABASE: jupyter
+      MYSQL_USER: root
+      MYSQL_PASSWORD: jupyter
+
   phpmyadmin:
     links:
       - mysql
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.8.0-3
     container_name: mysqladmin
     environment:
       PMA_ARBITRARY: 1
@@ -43,4 +46,3 @@ services:
       PMA_PASSWORD: jupyter
     ports:
       - "8000:80"
-    privileged: true
