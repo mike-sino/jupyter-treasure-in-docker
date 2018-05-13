@@ -10,7 +10,7 @@ this project includes:
 
 * jupyter lab: http://localhost:8888
 
-![Jupyterlab](https://github.com/mike-sino/jupyter-treasure-in-docker/tree/master/images/jupyter.png)
+![Jupyterlab](https://github.com/mike-sino/jupyter-treasure-in-docker/blob/master/images/jupyter.png)
 
 * both python 2 and python 3 kernel in miniconda
 
