@@ -63,6 +63,11 @@ RUN conda create -n python2 python=2.7 ipykernel && \
 COPY init/python3/requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
+# Install Minimal C kernel for jupyter
+RUN apk add --no-cache gcc libc-dev && \
+    pip install jupyter-c-kernel && \
+    install_c_kernel
+
 # Set environment
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
