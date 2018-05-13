@@ -8,8 +8,10 @@ this project includes:
 
 * docker enviroment [jupyter-treasure-in-docker](https://hub.docker.com/r/mikesino/jupyter-treasure-in-docker/)
 
-* jupyter notebook: http://localhost:8080
-
 * jupyter lab: http://localhost:8888
 
+![Jupyterlab](https://github.com/mike-sino/jupyter-treasure-in-docker/tree/master/images/jupyter.png)
+
 * both python 2 and python 3 kernel in miniconda
+
+* c and c++11 kernel for jupyter lab
