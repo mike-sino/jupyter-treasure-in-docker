@@ -12,6 +12,8 @@ this project includes:
 
 * jupyter lab: http://localhost:8888
 
-* both python 2 and python 3 kernel in miniconda
+* both python 3 and python 2 kernels with miniconda for jupyter lab
 
-* c and c++11 kernel for jupyter lab
+* c and c++ kernels for jupyter lab
+
+* SQLite, Mysql and Postgres kernels for jupyter lab
