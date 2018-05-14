@@ -9,7 +9,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
-    apk add --no-cache --virtual=.build-dependencies wget ca-certificates bash && \
+    apk add --no-cache --virtual=.build-dependencies wget ca-certificates bash git && \
     wget "https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub" && \
     wget "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
@@ -67,6 +67,9 @@ RUN pip install -r /tmp/requirements.txt
 RUN apk add --no-cache gcc libc-dev && \
     pip install jupyter-c-kernel && \
     install_c_kernel
+
+# Install mysql kernel for jupyter
+RUN pip install git+https://github.com/shemic/jupyter-mysql-kernel
 
 # Set environment
 ENV LC_ALL en_US.UTF-8

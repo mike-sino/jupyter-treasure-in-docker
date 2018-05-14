@@ -17,6 +17,7 @@ services:
       - ../notebook:/notebook
       - ./config/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
       - ./init/python3/requirements.txt:/tmp/requirements.txt
+      - ./config/mysql-jupyter-kernel/mysql_config.json:/root/.local/config/mysql_config.json
     command: jupyter lab
     restart: always
     privileged: true
@@ -46,3 +47,4 @@ services:
       PMA_PASSWORD: jupyter
     ports:
       - "8000:80"
+    restart: always
