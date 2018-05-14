@@ -12,6 +12,10 @@ this project includes:
 
 * jupyter lab: http://localhost:8888
 
+* phpMyadmin for mysql: http://localhost:8000
+
+* pgweb for postgres:  http://localhost:8081
+
 * both python 3 and python 2 kernels with miniconda for jupyter lab
 
 * c and c++ kernels for jupyter lab
