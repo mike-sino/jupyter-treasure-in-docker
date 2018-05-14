@@ -16,9 +16,11 @@ services:
       - "8888:8888"
     volumes:
       - ../notebook:/notebook
-      - ./config/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
       - ./init/python3/requirements.txt:/tmp/requirements.txt
-      - ./config/mysql-jupyter-kernel/mysql_config.json:/root/.local/config/mysql_config.json
+      - ./config/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+      - ./config/c-jupyter-kernel:/root/.local/share/jupyter/kernels/c
+      - ./config/mysql/mysql_config.json:/root/.local/config/mysql_config.json
+      - ./config/mysql-jupyter-kernel:/usr/local/share/jupyter/kernels/jupyter-mysql-kernel
     command: jupyter lab
     restart: always
     privileged: true
@@ -28,7 +30,7 @@ services:
     container_name: mysql
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./config/my.cnf:/etc/my.cnf
+      - ./config/mysql/my.cnf:/etc/my.cnf
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: jupyter
