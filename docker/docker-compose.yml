@@ -3,6 +3,7 @@ version: '3'
 volumes:
   mysql-data:
   postgresql-data:
+  pgweb-data:
 
 services:
   jupyter:
@@ -47,4 +48,27 @@ services:
       PMA_PASSWORD: jupyter
     ports:
       - "8000:80"
+    restart: always
+  
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=jupyter
+      - POSTGRES_USER=use
+      - POSTGRES_DB=jupyter
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data/pgdata
+    restart: always
+
+  pgweb:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    ports:
+      - "8081:8081"
+    environment:
+      - DATABASE_URL=postgres://use:jupyter@postgres:5432/postgres?sslmode=disable
+    depends_on:
+      - postgres
     restart: always
