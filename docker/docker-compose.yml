@@ -79,7 +79,7 @@ services:
     container_name: franchise-web
     image: "jsoizo/franchise"
     ports: 
-      - "3000:80"
+      - "8891:80"
     restart: always
 
   franchise-client:
