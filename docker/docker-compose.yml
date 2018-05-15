@@ -5,6 +5,7 @@ volumes:
   postgresql-data:
   pgweb-data:
   mongodb-data:
+  redis-data:
 
 services:
   jupyter:
@@ -38,7 +39,7 @@ services:
       MYSQL_DATABASE: jupyter
       MYSQL_USER: root
       MYSQL_PASSWORD: jupyter
-
+  # mysql GUI
   phpmyadmin:
     links:
       - mysql
@@ -64,7 +65,7 @@ services:
     volumes:
       - postgresql-data:/var/lib/postgresql/data/pgdata
     restart: always
-
+  # postgres GUI
   pgweb:
     image: sosedoff/pgweb
     container_name: pgweb
@@ -74,13 +75,6 @@ services:
       - DATABASE_URL=postgres://use:jupyter@postgres:5432/postgres?sslmode=disable
     links:
       - postgres
-    restart: always
-  
-  franchise-web:
-    container_name: franchise-web
-    image: "jsoizo/franchise"
-    ports: 
-      - "8891:80"
     restart: always
 
   franchise-client:
@@ -92,6 +86,13 @@ services:
       - mysql
       - postgres
     restart: always
+  # franchise GUI
+  franchise-web:
+    container_name: franchise-web
+    image: "jsoizo/franchise"
+    ports: 
+      - "8891:80"
+    restart: always
 
   mongodb:
     image: mongo:latest
@@ -102,7 +103,7 @@ services:
     volumes:
       - mongodb-data:/data/db
     restart: always
-
+  # mongodb GUI
   mongo-admin:
     image: mrvautin/adminmongo
     container_name: mongo-admin
@@ -115,5 +116,22 @@ services:
       - DB_PASSWORD=example
       - DB_HOST=mongodb
       - DB_PORT=27017
-
     restart: always
+
+  redis:
+    image: redis
+    container_name: redis
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    restart: always
+  # redis GUI
+  redis-rebrow:
+    image: marian/rebrow
+    container_name: redis-rebrow
+    ports:
+      - "8893:5001"
+    links:
+      - redis
+    restart: always
+    
