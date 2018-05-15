@@ -49,7 +49,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: jupyter
     ports:
-      - "8000:80"
+      - "8889:80"
     restart: always
   
   postgres:
@@ -68,9 +68,26 @@ services:
     image: sosedoff/pgweb
     container_name: pgweb
     ports:
-      - "8081:8081"
+      - "8890:8081"
     environment:
       - DATABASE_URL=postgres://use:jupyter@postgres:5432/postgres?sslmode=disable
-    depends_on:
+    links:
+      - postgres
+    restart: always
+  
+  franchise-web:
+    container_name: franchise-web
+    image: "jsoizo/franchise"
+    ports: 
+      - "3000:80"
+    restart: always
+
+  franchise-client:
+    container_name: franchise-client
+    image: "jsoizo/franchise-client"
+    ports: 
+      - "14645:14645"
+    links:
+      - mysql
       - postgres
     restart: always
