@@ -17,7 +17,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - ../notebook:/notebook
+      - ../../../notebook:/notebook        # can be changed according to demand
       - ./init/python3/requirements.txt:/tmp/requirements.txt
       - ./config/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
       - ./config/c-jupyter-kernel:/root/.local/share/jupyter/kernels/c
