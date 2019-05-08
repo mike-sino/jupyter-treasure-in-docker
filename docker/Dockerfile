@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.9
 
 LABEL maintainer="mike-sino"
 LABEL version="1.0"
@@ -10,7 +10,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
-    wget "https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub" \
+    wget "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub" && \
     wget "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
          "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
@@ -51,9 +51,8 @@ RUN conda install -c conda-forge jupyterLab && \
     mkdir /notebook/
 
 # Install jupyterlab extensions based on nodejs and npm 
-RUN apk add --no-cache nodejs && \
-    jupyter labextension install jupyterlab-drawio && \
-    jupyter labextension install @jupyterlab/github
+RUN conda install nodejs && \
+    jupyter labextension install jupyterlab-drawio
 
 # Install python2 and python3 kernels
 RUN conda create -n python2 python=2.7 ipykernel && \
